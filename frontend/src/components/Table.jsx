@@ -414,7 +414,7 @@ const Table = () => {
     }
 
     return (
-        <div>
+        <div className='mt-12'>
             <button onClick={ascendingFilter} className='p-2 border-2'>Ascending</button>
             <button onClick={descendingFilter} className='p-2 border-2'>Descending</button>
             <select name="status" id="status" value={selectValue} onChange={selectChange}>
