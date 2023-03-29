@@ -51,6 +51,13 @@ const Table = () => {
             else {
                 return true;
             }
+        }).filter((order) => {
+            if (sourceValue === '') {
+                return true;
+            }
+            else {
+                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
+            }
         });
         setArray(arr);
     }
@@ -92,6 +99,13 @@ const Table = () => {
             }
             else {
                 return true;
+            }
+        }).filter((order) => {
+            if (sourceValue === '') {
+                return true;
+            }
+            else {
+                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
             }
         });
         setArray(arr);
@@ -140,6 +154,13 @@ const Table = () => {
             }
             else {
                 return 0;
+            }
+        }).filter((order) => {
+            if (sourceValue === '') {
+                return true;
+            }
+            else {
+                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
             }
         });
 
@@ -218,6 +239,13 @@ const Table = () => {
             else {
                 return 0;
             }
+        }).filter((order) => {
+            if (sourceValue === '') {
+                return true;
+            }
+            else {
+                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
+            }
         });
 
         setDelivered(true);
@@ -273,6 +301,13 @@ const Table = () => {
             }
             else {
                 return 0;
+            }
+        }).filter((order) => {
+            if (sourceValue === '') {
+                return true;
+            }
+            else {
+                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
             }
         });
         setArray(arr);
@@ -330,12 +365,21 @@ const Table = () => {
             else {
                 return 0;
             }
+        }).filter((order) => {
+            if (sourceValue === '') {
+                return true;
+            }
+            else {
+                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
+            }
         });
         setArray(arr);
     }
 
     const selectChange = (e) => {
         setSelectValue(e.target.value);
+        deliveredClick();
+        outForDeliveryClick();
     }
 
     const sourceChange = (e) => {
@@ -414,55 +458,78 @@ const Table = () => {
     }
 
     return (
-        <div className='mt-12'>
-            <button onClick={ascendingFilter} className='p-2 border-2'>Ascending</button>
-            <button onClick={descendingFilter} className='p-2 border-2'>Descending</button>
-            <select name="status" id="status" value={selectValue} onChange={selectChange}>
-                <option value='' hidden={true} >Filter by Status</option>
-                <option value="out-for-delivery" onClick={outForDeliveryClick}>Out for Delivery</option>
-                <option value="delivered" onClick={deliveredClick}>Delivered</option>
-            </select>
-            <div>
-                <label htmlFor="cost">Filter by Cost</label>
-                <input type="range" id='cost' max={10000} min={0} onChange={costRangeChange} onClick={costRangeChange} value={costRange} />
-                <p>{costRange}</p>
+        <>
+            <div className='flex flex-col overflow-hidden px-6'>
+                <div className='w-full mb-4 border-b-2 rounded-lg'>
+                    <input type="text" value={sourceValue} onChange={sourceChange} className='rounded-lg bg-gray-100 py-2 px-4 focus:outline-none w-full text-[14px] text-gray-500' placeholder='Search by source...' />
+                </div>
+                <div className='w-full flex flex-col sm:flex-row gap-4 mb-4'>
+                    <button onClick={ascendingFilter} className={`py-2 px-4 ${(ascendingClick) ? 'bg-gray-300' : 'bg-gray-100'} rounded-lg text-[14px] border-b-2 w-fit`}>Ascending</button>
+                    <button onClick={descendingFilter} className={`py-2 px-4 rounded-lg ${(descendingClick) ? 'bg-gray-300' : 'bg-gray-100'} text-[14px] border-b-2 w-fit`}>Descending</button>
+                    <select name="status" id="status" value={selectValue} onChange={selectChange} className='bg-gray-100 rounded-lg px-4 py-2 text-[15px] text-[#222222] border-b-2'>
+                        <option value='' hidden={true} >Filter by Status</option>
+                        <option value="out-for-delivery" onClick={outForDeliveryClick}>Out for Delivery</option>
+                        <option value="delivered" onClick={deliveredClick}>Delivered</option>
+                    </select>
+                </div>
+                <div className='flex flex-col sm:flex-row gap-5 mb-4 mt-6 sm:mt-0'>
+                    <div className='bg-gray-100 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 cursor-pointer'>
+                        <label htmlFor="cost">Filter by Cost</label>
+                    </div>
+                    <div className='flex justify-center gap-1'>
+                        <span className='text-[14px]'>0</span>
+                        <span className='flex flex-col justify-center items-center px-2'>
+                            <input type="range" id='cost' max={10000} min={0} onChange={costRangeChange} onClick={costRangeChange} value={costRange} />
+                            <p className='text-[14px] bg-slate-100 px-3 rounded-lg border-b-2'>{costRange}</p>
+                        </span>
+                        <span className='text-[14px]'>10000</span>
+                    </div>
+                </div>
+                <div className='flex flex-col sm:flex-row gap-5 mb-4 mt-6 sm:mt-0'>
+                    <div className='bg-gray-100 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 cursor-pointer'>
+                        <label htmlFor="weight">Filter by Weight</label>
+                    </div>
+                    <div className='flex justify-center gap-1'>
+                        <span className='text-[14px]'>0</span>
+                        <span className='flex flex-col justify-center items-center px-2' >
+                            <input type="range" id='weight' max={20} min={0} onChange={weightRangeChange} onClick={weightRangeChange} value={weightRange} />
+                            <p className='text-[14px] bg-slate-100 px-3 rounded-lg border-b-2'>{weightRange}</p>
+                        </span>
+                        <span className='text-[14px]'>20</span>
+                    </div>
+                </div>
+                <div className='bg-gray-100 hover:bg-gray-300 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 w-fit md:self-end mb-4 mt-4 sm:mt-0'>
+                    <button onClick={removeFilterClick}>Remove Filter</button>
+                </div>
             </div>
-            <div>
-                <label htmlFor="weight">Filter by Weight</label>
-                <input type="range" id='weight' max={20} min={0} onChange={weightRangeChange} onClick={weightRangeChange} value={weightRange} />
-                <p>{weightRange}</p>
-            </div>
-            <div>
-                <label htmlFor="source">Search by source</label>
-                <input type="text" id='source' value={sourceValue} onChange={sourceChange} />
-            </div>
-            <button onClick={removeFilterClick}>Remove Filter</button>
-            <table className='overflow-scroll w-full min-w-[770px]'>
-                <caption>Orders</caption>
-                <tbody>
-                    <tr className='border-2 border-black w-full'>
-                        <th className='px-4 py-2 border-r-2 border-black'>User</th>
-                        <th className='px-4 py-2 border-r-2 border-black'>Shipper</th>
-                        <th className='px-4 py-2 border-r-2 border-black'>Weight</th>
-                        <th className='px-4 py-2 border-r-2 border-black'>Cost</th>
-                        <th className='px-4 py-2 border-r-2 border-black'>Source</th>
-                        <th className='px-4 py-2 border-r-2 border-black'>Destination</th>
-                        <th className='px-4 py-2 border-r-2 border-black'>Status</th>
-                    </tr>
-                    {array.map((order, index) => (
-                        <tr className='border-2 border-black w-full' key={index}>
-                            <td className='px-4 py-2 border-r-2 border-black'>{order.user}</td>
-                            <td className='px-4 py-2 border-r-2 border-black'>{order.shipper}</td>
-                            <td className='px-4 py-2 border-r-2 border-black'>{order.weight}</td>
-                            <td className='px-4 py-2 border-r-2 border-black'>{order.cost}</td>
-                            <td className='px-4 py-2 border-r-2 border-black'>{order.source}</td>
-                            <td className='px-4 py-2 border-r-2 border-black'>{order.destination}</td>
-                            <td className='px-4 py-2 border-r-2 border-black'>{order.status}</td>
+            <div className='overflow-scroll px-4 mr-4'>
+                <table className='w-full min-w-[800px] text-[15px]'>
+                    <caption className='text-[1.2rem] font-semibold'>Orders</caption>
+                    <tbody>
+                        <tr className='w-full text-gray-500'>
+                            <th className='px-4 py-2 bg-gray-100 rounded-tl-lg border-b-2 font-medium'>User</th>
+                            <th className='px-4 py-2 bg-gray-100 border-b-2 font-medium'>Shipper</th>
+                            <th className='px-4 py-2 bg-gray-100 border-b-2 font-medium'>Weight</th>
+                            <th className='px-4 py-2 bg-gray-100 border-b-2 font-medium'>Cost</th>
+                            <th className='px-4 py-2 bg-gray-100 border-b-2 font-medium'>Source</th>
+                            <th className='px-4 py-2 bg-gray-100 border-b-2 font-medium'>Destination</th>
+                            <th className='px-4 py-2 rounded-tr-lg bg-gray-100 border-b-2 font-medium'>Status</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                        {array.map((order, index) => (
+                            <tr className='w-full text-center font-thin' key={index}>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.user}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.shipper}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.weight}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.cost}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.source}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.destination}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.status}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </>
     )
 }
 

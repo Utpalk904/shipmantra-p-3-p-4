@@ -3,7 +3,8 @@ import Table from '../components/Table';
 
 const TablePage = () => {
     return (
-        <div className='w-full h-[100svh] flex md:justify-center items-center overflow-scroll px-4 py-8'>
+        // <div className='w-full flex md:justify-center items-center px-8 py-10'>
+        <div className='w-full flex flex-col md:justify-center py-10'>
             <Table />
         </div>
     )
