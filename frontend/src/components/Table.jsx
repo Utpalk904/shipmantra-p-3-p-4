@@ -1,6 +1,8 @@
 import Order from '../constants/order.json';
 import React, { useState } from 'react';
 
+const defArr = [...Order];
+
 const Table = () => {
 
     const [ascendingClick, setAscendingClick] = useState(false);
@@ -13,7 +15,6 @@ const Table = () => {
     const [selectValue, setSelectValue] = useState('');
     const [sourceValue, setSourceValue] = useState('');
 
-    const defArr = Order;
 
     const ascendingFilter = () => {
         setAscendingClick(true);
@@ -58,7 +59,7 @@ const Table = () => {
                 return true;
             }
             else {
-                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
+                return order.source.toLowerCase().includes(sourceValue.toLowerCase());
             }
         });
         setArray(arr);
@@ -107,7 +108,7 @@ const Table = () => {
                 return true;
             }
             else {
-                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
+                return order.source.toLowerCase().includes(sourceValue.toLowerCase());
             }
         });
         setArray(arr);
@@ -162,7 +163,7 @@ const Table = () => {
                 return true;
             }
             else {
-                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
+                return order.source.toLowerCase().includes(sourceValue.toLowerCase());
             }
         });
 
@@ -246,7 +247,7 @@ const Table = () => {
                 return true;
             }
             else {
-                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
+                return order.source.toLowerCase().includes(sourceValue.toLowerCase());
             }
         });
 
@@ -309,7 +310,7 @@ const Table = () => {
                 return true;
             }
             else {
-                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
+                return order.source.toLowerCase().includes(sourceValue.toLowerCase());
             }
         });
         setArray(arr);
@@ -372,7 +373,7 @@ const Table = () => {
                 return true;
             }
             else {
-                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
+                return order.source.toLowerCase().includes(sourceValue.toLowerCase());
             }
         });
         setArray(arr);
@@ -390,7 +391,7 @@ const Table = () => {
                 return true;
             }
             else {
-                return order.source.toLowerCase().includes(e.target.value.toLowerCase());
+                return order.source.toLowerCase().includes(sourceValue.toLowerCase());
             }
         }).filter((order) => {
             if (!weightRange) {
