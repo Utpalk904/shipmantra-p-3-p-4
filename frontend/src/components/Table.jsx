@@ -459,11 +459,11 @@ const Table = () => {
 
     return (
         <>
-            <div className='flex flex-col overflow-hidden px-6'>
-                <div className='w-full mb-4 border-b-2 rounded-lg'>
-                    <input type="text" value={sourceValue} onChange={sourceChange} className='rounded-lg bg-gray-100 py-2 px-4 focus:outline-none w-full text-[14px] text-gray-500' placeholder='Search by source...' />
+            <div className='flex flex-col overflow-hidden px-6 sm:px-[10vw] items-center'>
+                <div className='w-full md:w-[50vw] mb-4 border-b-2 rounded-lg'>
+                    <input type="text" value={sourceValue} onChange={sourceChange} className='rounded-lg bg-gray-100 py-2 px-4 focus:outline-none w-full md:w-[50vw] text-[14px] text-gray-500' placeholder='Search by source...' />
                 </div>
-                <div className='w-full flex flex-col sm:flex-row gap-4 mb-4'>
+                <div className='w-full md:w-[50vw] flex flex-col sm:flex-row gap-4 mb-4'>
                     <button onClick={ascendingFilter} className={`py-2 px-4 ${(ascendingClick) ? 'bg-gray-300' : 'bg-gray-100'} rounded-lg text-[14px] border-b-2 w-fit`}>Ascending</button>
                     <button onClick={descendingFilter} className={`py-2 px-4 rounded-lg ${(descendingClick) ? 'bg-gray-300' : 'bg-gray-100'} text-[14px] border-b-2 w-fit`}>Descending</button>
                     <select name="status" id="status" value={selectValue} onChange={selectChange} className='bg-gray-100 rounded-lg px-4 py-2 text-[15px] text-[#222222] border-b-2'>
@@ -472,7 +472,7 @@ const Table = () => {
                         <option value="delivered" onClick={deliveredClick}>Delivered</option>
                     </select>
                 </div>
-                <div className='flex flex-col sm:flex-row gap-5 mb-4 mt-6 sm:mt-0'>
+                <div className='flex flex-col sm:flex-row gap-5 mb-4 mt-6 sm:mt-0 md:w-[50vw]'>
                     <div className='bg-gray-100 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 cursor-pointer'>
                         <label htmlFor="cost">Filter by Cost</label>
                     </div>
@@ -485,7 +485,7 @@ const Table = () => {
                         <span className='text-[14px]'>10000</span>
                     </div>
                 </div>
-                <div className='flex flex-col sm:flex-row gap-5 mb-4 mt-6 sm:mt-0'>
+                <div className='flex flex-col sm:flex-row gap-5 mb-4 mt-6 sm:mt-0 md:w-[50vw]'>
                     <div className='bg-gray-100 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 cursor-pointer'>
                         <label htmlFor="weight">Filter by Weight</label>
                     </div>
@@ -498,11 +498,11 @@ const Table = () => {
                         <span className='text-[14px]'>20</span>
                     </div>
                 </div>
-                <div className='bg-gray-100 hover:bg-gray-300 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 w-fit md:self-end mb-4 mt-4 sm:mt-0'>
-                    <button onClick={removeFilterClick}>Remove Filter</button>
+                <div className='bg-gray-100 hover:bg-gray-300 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 w-fit  mb-4 mt-4 sm:mt-0 md:w-[50vw]'>
+                    <button onClick={removeFilterClick} className='w-fit'>Remove Filter</button>
                 </div>
             </div>
-            <div className='overflow-scroll px-4 mr-4'>
+            <div className='overflow-scroll sm:px-[10vw] px-4 mr-4 sm:mr-0'>
                 <table className='w-full min-w-[800px] text-[15px]'>
                     <caption className='text-[1.2rem] font-semibold'>Orders</caption>
                     <tbody>
@@ -528,6 +528,9 @@ const Table = () => {
                         ))}
                     </tbody>
                 </table>
+            </div>
+            <div className='px-4 sm:px-[10vw] mt-6 text-[1.3rem] text-center'>
+                {array.length} Results
             </div>
         </>
     )
