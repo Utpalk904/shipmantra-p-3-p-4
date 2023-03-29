@@ -13,6 +13,8 @@ const Table = () => {
     const [selectValue, setSelectValue] = useState('');
     const [sourceValue, setSourceValue] = useState('');
 
+    const defArr = Order;
+
     const ascendingFilter = () => {
         setAscendingClick(true);
         setDescendingClick(false);
@@ -446,7 +448,7 @@ const Table = () => {
     }
 
     const removeFilterClick = () => {
-        setArray(Order);
+        setArray(defArr);
         setWeightRange(0);
         setCostRange(0);
         setAscendingClick(false);
@@ -464,16 +466,16 @@ const Table = () => {
                     <input type="text" value={sourceValue} onChange={sourceChange} className='rounded-lg bg-gray-100 py-2 px-4 focus:outline-none w-full md:w-[50vw] text-[14px] text-gray-500' placeholder='Search by source...' />
                 </div>
                 <div className='w-full md:w-[50vw] flex flex-col sm:flex-row gap-4 mb-4'>
-                    <button onClick={ascendingFilter} className={`py-2 px-4 ${(ascendingClick) ? 'bg-gray-300' : 'bg-gray-100'} rounded-lg text-[14px] border-b-2 w-fit`}>Ascending</button>
-                    <button onClick={descendingFilter} className={`py-2 px-4 rounded-lg ${(descendingClick) ? 'bg-gray-300' : 'bg-gray-100'} text-[14px] border-b-2 w-fit`}>Descending</button>
-                    <select name="status" id="status" value={selectValue} onChange={selectChange} className='bg-gray-100 rounded-lg px-4 py-2 text-[15px] text-[#222222] border-b-2'>
+                    <button onClick={ascendingFilter} className={`py-2 px-4 ${(ascendingClick) ? 'bg-gray-300' : 'bg-gray-100'} rounded-lg text-[14px] border-b-2 hover:bg-gray-300 w-fit`}>Ascending</button>
+                    <button onClick={descendingFilter} className={`py-2 px-4 rounded-lg ${(descendingClick) ? 'bg-gray-300' : 'bg-gray-100'} text-[14px] border-b-2 hover:bg-gray-300 w-fit`}>Descending</button>
+                    <select name="status" id="status" value={selectValue} onChange={selectChange} className='bg-gray-100 rounded-lg px-4 py-2 text-[15px] text-[#222222] border-b-2 hover:bg-gray-300'>
                         <option value='' hidden={true} >Filter by Status</option>
                         <option value="out-for-delivery" onClick={outForDeliveryClick}>Out for Delivery</option>
                         <option value="delivered" onClick={deliveredClick}>Delivered</option>
                     </select>
                 </div>
                 <div className='flex flex-col sm:flex-row gap-5 mb-4 mt-6 sm:mt-0 md:w-[50vw]'>
-                    <div className='bg-gray-100 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 cursor-pointer'>
+                    <div className='bg-gray-100 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 hover:bg-gray-300 cursor-pointer'>
                         <label htmlFor="cost">Filter by Cost</label>
                     </div>
                     <div className='flex justify-center gap-1'>
@@ -486,7 +488,7 @@ const Table = () => {
                     </div>
                 </div>
                 <div className='flex flex-col sm:flex-row gap-5 mb-4 mt-6 sm:mt-0 md:w-[50vw]'>
-                    <div className='bg-gray-100 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 cursor-pointer'>
+                    <div className='bg-gray-100 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 hover:bg-gray-300 cursor-pointer'>
                         <label htmlFor="weight">Filter by Weight</label>
                     </div>
                     <div className='flex justify-center gap-1'>
@@ -498,8 +500,8 @@ const Table = () => {
                         <span className='text-[14px]'>20</span>
                     </div>
                 </div>
-                <div className='bg-gray-100 hover:bg-gray-300 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 w-fit  mb-4 mt-4 sm:mt-0 md:w-[50vw]'>
-                    <button onClick={removeFilterClick} className='w-fit'>Remove Filter</button>
+                <div className='bg-gray-100 hover:bg-gray-300 rounded-lg px-4 py-2 flex justify-center items-center text-[15px] border-b-2 w-fit  mb-4 mt-4 sm:mt-0 md:w-[50vw] cursor-pointer' onClick={removeFilterClick} >
+                    <button className='w-fit'>Remove Filter</button>
                 </div>
             </div>
             <div className='overflow-scroll sm:px-[10vw] px-4 mr-4 sm:mr-0'>
@@ -507,7 +509,7 @@ const Table = () => {
                     <caption className='text-[1.2rem] font-semibold'>Orders</caption>
                     <tbody>
                         <tr className='w-full text-gray-500'>
-                            <th className='px-4 py-2 bg-gray-100 rounded-tl-lg border-b-2 font-medium'>User</th>
+                            <th className='px-4 py-2 bg-gray-100 rounded-tl-lg border-b-2 font-medium w-fit'>User</th>
                             <th className='px-4 py-2 bg-gray-100 border-b-2 font-medium'>Shipper</th>
                             <th className='px-4 py-2 bg-gray-100 border-b-2 font-medium'>Weight</th>
                             <th className='px-4 py-2 bg-gray-100 border-b-2 font-medium'>Cost</th>
@@ -517,13 +519,13 @@ const Table = () => {
                         </tr>
                         {array.map((order, index) => (
                             <tr className='w-full text-center font-thin' key={index}>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.user}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.shipper}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.weight}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.cost}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.source}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.destination}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.status}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.user}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.shipper}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.weight}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.cost}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.source}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.destination}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.status}</td>
                             </tr>
                         ))}
                     </tbody>
