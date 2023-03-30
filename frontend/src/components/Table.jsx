@@ -505,7 +505,7 @@ const Table = () => {
                     <button className='w-fit'>Remove Filter</button>
                 </div>
             </div>
-            <div className='overflow-scroll sm:px-[10vw] px-4 mr-4 sm:mr-0'>
+            <div className='overflow-scroll sm:px-[10vw] px-4 mr-4 sm:mr-0' id='table'>
                 <table className='w-full min-w-[800px] text-[15px]'>
                     <caption className='text-[1.2rem] font-semibold'>Orders</caption>
                     <tbody>
