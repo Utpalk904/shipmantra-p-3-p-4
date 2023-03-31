@@ -546,7 +546,7 @@ const Table = () => {
             </div>
             <div className='overflow-scroll sm:px-[10vw] px-4 mr-4 sm:mr-0' id='table'>
                 <table className='w-full min-w-[800px] text-[15px]'>
-                    <caption className='text-[1.2rem] font-semibold'>Orders</caption>
+                    <caption className='text-[1.2rem] font-semibold'>Orders(click on row to edit)</caption>
                     <tbody>
                         <tr className='w-full text-gray-500'>
                             <th className='px-4 py-2 bg-gray-100 rounded-tl-lg border-b-2 font-medium w-fit'>User</th>
