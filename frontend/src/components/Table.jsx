@@ -397,12 +397,13 @@ const Table = () => {
     }
 
     const sourceChange = (e) => {
+        const val = e.target.value.toLowerCase();
         const arr = Order.filter((order) => {
-            if (sourceValue === '') {
+            if (val === '') {
                 return true;
             }
             else {
-                return order.source.toLowerCase().includes(sourceValue.toLowerCase());
+                return order.source.toLowerCase().includes(val);
             }
         }).filter((order) => {
             if (!weightRange) {
@@ -455,7 +456,7 @@ const Table = () => {
                 return 0;
             }
         });
-        setSourceValue(e.target.value.toLowerCase());
+        setSourceValue(val);
         setArray(arr);
     }
 
