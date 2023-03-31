@@ -1,5 +1,8 @@
 import Order from '../constants/order.json';
 import React, { useState } from 'react';
+// import Popup from './Modal';
+import { useDisclosure } from '@mantine/hooks';
+import { Modal, Group, Button } from '@mantine/core';
 
 const defArr = [...Order];
 
@@ -14,6 +17,14 @@ const Table = () => {
     const [weightRange, setWeightRange] = useState(0);
     const [selectValue, setSelectValue] = useState('');
     const [sourceValue, setSourceValue] = useState('');
+
+    const [opened, { open, close }] = useDisclosure(false);
+    const [rowIndex, setRowIndex] = useState(null);
+
+    const [userInput, setUserInput] = useState('');
+    const [weightInput, setWeightInput] = useState('');
+    const [statusInput, setStatusInput] = useState('');
+    const [costInput, setCostInput] = useState('');
 
 
     const ascendingFilter = () => {
@@ -460,6 +471,33 @@ const Table = () => {
         setSelectValue('');
     }
 
+    const userInputChange = (e) => {
+        setUserInput(e.target.value);
+    }
+
+    const weightInputChange = (e) => {
+        setWeightInput(e.target.value);
+    }
+
+    const costInputChange = (e) => {
+        setCostInput(e.target.value);
+    }
+
+    const statusInputChange = (e) => {
+        setStatusInput(e.target.value);
+    }
+
+    const rowClick = (index) => {
+        setRowIndex(index);
+        open();
+    };
+
+    const closeClick = () => {
+        setUserInput('');
+        setRowIndex(null);
+        close();
+    }
+
     return (
         <>
             <div className='flex flex-col overflow-hidden px-6 sm:px-[10vw] items-center'>
@@ -519,18 +557,94 @@ const Table = () => {
                             <th className='px-4 py-2 rounded-tr-lg bg-gray-100 border-b-2 font-medium'>Status</th>
                         </tr>
                         {array.map((order, index) => (
-                            <tr className='w-full text-center font-thin' key={index}>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.user}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.shipper}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.weight}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.cost}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.source}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.destination}</td>
-                                <td className='px-4 py-2 bg-gray-50 border-b-2 hover:border-black'>{order.status}</td>
+                            <tr className='w-full text-center hover:border-black border-2 font-thin cursor-pointer' onClick={() => { rowClick(index) }} key={index}>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.user}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.shipper}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.weight}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.cost}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.source}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.destination}</td>
+                                <td className='px-4 py-2 bg-gray-50 border-b-2'>{order.status}</td>
                             </tr>
                         ))}
+
                     </tbody>
                 </table>
+                <Modal opened={opened} onClose={closeClick} title="Edit Order" centered>
+                    <div>
+                        <label htmlFor="user" className='block mb-2 text-sm font-medium text-gray-900'>User</label>
+                        <input
+                            type="text"
+                            id='user'
+                            value={userInput}
+                            placeholder='Enter new username'
+                            onChange={userInputChange}
+                            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4'
+                            required />
+                    </div>
+                    <div>
+                        <label htmlFor="weight-input" className='block mb-2 text-sm font-medium text-gray-900'>Weight</label>
+                        <input
+                            type="text"
+                            id='weight-input'
+                            value={weightInput}
+                            onChange={weightInputChange}
+                            placeholder='Enter new weight'
+                            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4'
+                            required />
+                    </div>
+                    <div>
+                        <label htmlFor="cost-input" className='block mb-2 text-sm font-medium text-gray-900'>Cost</label>
+                        <input
+                            type="text"
+                            id='cost-input'
+                            value={costInput}
+                            onChange={costInputChange}
+                            placeholder='Enter new cost'
+                            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4'
+                            required />
+                    </div>
+                    <div>
+                        <label htmlFor="status-input" className='block mb-2 text-sm font-medium text-gray-900'>Select Status</label>
+                        <select
+                            type="text"
+                            id='staus-input'
+                            value={statusInput}
+                            onChange={statusInputChange}
+                            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4'
+                            required>
+                            <option value="" hidden={true}>Status</option>
+                            <option value="out-for-delivery">out-for-delivery</option>
+                            <option value="delivered">delivered</option>
+                        </select>
+                    </div>
+                    <Group position="center">
+                        <button
+                            onClick={() => {
+                                const newArr = [...array]
+                                if (userInput !== '') {
+                                    newArr[rowIndex].user = userInput;
+                                }
+                                if (costInput !== '') {
+                                    newArr[rowIndex].cost = costInput;
+                                }
+                                if (weightInput !== '') {
+                                    newArr[rowIndex].weight = weightInput;
+                                }
+                                if (statusInput !== '') {
+                                    newArr[rowIndex].status = statusInput;
+                                }
+                                setArray(newArr);
+                                setRowIndex(null);
+                                setUserInput('');
+                                close();
+                            }}
+                            className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'>
+                            Save
+                        </button>
+                    </Group>
+                </Modal>
+                <Group position="center" />
             </div>
             <div className='px-4 sm:px-[10vw] mt-6 text-[1.3rem] text-center'>
                 {array.length} Results
