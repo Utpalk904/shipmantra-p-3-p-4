@@ -8,7 +8,7 @@ process.on("uncaughtException", (err) => {
     });
 });
 
-dotenv.config({ path: "config/config.env" });
+dotenv.config({ path: ".env" });
 
 const connectDB = require('./DB/db');
 connectDB();
